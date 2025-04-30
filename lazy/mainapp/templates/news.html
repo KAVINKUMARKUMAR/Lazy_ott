@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="movie_page">
+    <div class="movie_pag">
+        <div id="line" class="line">
+            <div class="line_ball"></div>
+        </div>
+        <div class="searcher" >
+            <div class="movie_slots">
+                <div class="movie_image_slot">
+                    {% for movie in movies %}
+                      <div class="movie_card">
+                        <div class="movie_image">
+                          <img src="{{movie.img.url}}" alt="{{movie.img.url}}">
+                        </div>
+                        <div class="movie_rating">
+                          <p>{{ movie.Movie_rating }}</p>
+                        </div>
+                      </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="news_pro">
+            <h1>Coming soon,working on process</h1>
+        </div>
+        <div class="line">
+            <div id="black_ball" class="line_ball">
+              <a href="#line">
+                <h5>^</h5>
+              </a>
+            </div>
+          </div>
+          <div class="laz">
+            <div class="laz_about">
+              <p class="p_about">LAZY</h5>
+              <h6>movie revies with Tamil Language </p>
+            </div>
+            <div class="laz_about">
+              <p class="p_about">Developer</h5>
+              <h6>Developer and desigh by Kavinkumar with Django</p>
+            </div>
+            <div class="laz_about">
+              <p class="p_about">Contact</h5>
+              <h6>Mail:Kavinkumar2112202@gmail.com</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

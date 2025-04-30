@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="movie_page">
+    <div class="movie_pag">
+        <div id="line" class="line">
+            <div class="line_ball"></div>
+        </div>
+        <div class="searcher">
+            <div class="searcher-box">
+                <div class="searcher-field">
+                    <input placeholder="Search your Movies and Series" class="input" type="text">
+                    <div class="searcher-box-icon">
+                        <button class="btn-icon-content">
+                            <i class="searcher-icon">
+                                <svg xmlns="://www.w3.org/2000/svg" version="1.1" viewBox="0 0 512 512">
+                                    <path
+                                        d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
+                                        fill="#fff">
+                                    </path>
+                                </svg>
+                            </i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="movie_gen">
+                <h1>Genere</h1>
+                <div class="movie_sort">
+                    <div class="movie_sor">
+                        <p>popular</p>
+                        <p>top rated</p>
+                        <p>comedy</p>
+                        <p>horror</p>
+                        <p>action</p>
+                        <p>romance</p>
+                        <p>sci-fi</p>
+                        <p>animation</p>
+                    </div>
+                </div>
+            </div>
+            <div class="movie_slots">
+                <div class="movie_image_slot">
+                    {% for movie in movies %}
+                      <div class="movie_card">
+                        <div class="movie_image">
+                          <img src="{{movie.img.url}}" alt="{{movie.img.url}}">
+                        </div>
+                        <div class="movie_rating">
+                          <p>{{ movie.Movie_rating }}</p>
+                        </div>
+                      </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="series_box">
+        </div>
+        <div class="line">
+            <div id="black_ball" class="line_ball">
+              <a href="#line">
+                <h5>^</h5>
+              </a>
+            </div>
+          </div>
+          <div class="laz">
+            <div class="laz_about">
+              <p class="p_about">LAZY</h5>
+              <h6>movie revies with Tamil Language </p>
+            </div>
+            <div class="laz_about">
+              <p class="p_about">Developer</h5>
+              <h6>Developer and desigh by Kavinkumar with Django</p>
+            </div>
+            <div class="laz_about">
+              <p class="p_about">Contact</h5>
+              <h6>Mail:Kavinkumar2112202@gmail.com</p>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock %}

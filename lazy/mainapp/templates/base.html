@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <script src="{% static 'js/script.js' %}" defer></script>
+</head>
+<body>
+    <nav>
+        <div id="nav" class="nav_top">
+            <h1>LAZY</h1>
+            <ul>
+                <a href="{% url 'home' %}"><li>Home</li></a>
+                <a href="{% url 'movies' %}"><li>Movies</li></a>
+                <a href="{% url 'series' %}"><li>Series</li></a>
+                <a href="{% url 'news' %}"><li>News</li></a>
+            </ul>
+            <div class="nav_search">
+                <!-- From Uiverse.io by krlozCJ --> 
+                <div class="container">
+                    {% comment %} <input type="text" name="text" class="input" required="" placeholder="Type to search...">
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+                            <title>Search</title>
+                            <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path>
+                        </svg>
+                    </div> {% endcomment %}
+                </div>
+                <div class="nav_lag"><p>EN</p></div>
+            </div>
+        </div>
+        {% block content %}
+        {% endblock %}
+    </nav>
+</body>
+</html>
