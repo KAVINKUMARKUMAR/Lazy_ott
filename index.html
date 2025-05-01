@@ -10,7 +10,8 @@
     <div class="bg-img">
       <div class="content">
         <header>Login Form</header>
-        <form action="#">
+        <form method="POST" action="#">
+          {% csrf_token %}
           <div class="field">
             <span class="fa fa-user"></span>
             <input type="text" required placeholder="Email or Phone">

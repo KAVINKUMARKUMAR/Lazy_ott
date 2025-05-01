@@ -46,3 +46,4 @@ setInterval(nextSlide, 5000); // Auto change every 5 seconds
 document.addEventListener("DOMContentLoaded", function () {
   showSlide(slideIndex);
 });
+

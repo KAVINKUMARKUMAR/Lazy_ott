@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="{% static 'js/script.js' %}" defer></script>
 </head>
 <body>
@@ -22,11 +23,21 @@
         <div id="nav" class="nav_top">
             <h1>LAZY</h1>
             <ul>
-                <a href="{% url 'home' %}"><li>Home</li></a>
-                <a href="{% url 'movies' %}"><li>Movies</li></a>
-                <a href="{% url 'series' %}"><li>Series</li></a>
-                <a href="{% url 'news' %}"><li>News</li></a>
+                {% if user.is_authenticated %}
+                    {% if user.is_staff %}
+                        <li><a href="{% url 'movie_add' %}">Add movie</a></li>
+                        <li><a href="{% url 'genere_add' %}">Generes_cards</a></li>
+                        <li><a href="{% url 'home' %}">Navigation banner</a></li>
+                    {% else %}
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'movies' %}">Movies</a></li>
+                        <li><a href="{% url 'series' %}">Series</a></li>
+                        <li><a href="{% url 'news' %}">News</a></li>
+                    {% endif %}
+                {% else %}
+                {% endif %}
             </ul>
+                
             <div class="nav_search">
                 <!-- From Uiverse.io by krlozCJ --> 
                 <div class="container">
@@ -39,7 +50,13 @@
                         </svg>
                     </div> {% endcomment %}
                 </div>
-                <div class="nav_lag"><p>EN</p></div>
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button style="color: white; margin-bottom:17px;" type="submit" class="nav-link">Logout</button>
+                    </form>
+                {% else %}
+                {% endif %}        
             </div>
         </div>
         {% block content %}

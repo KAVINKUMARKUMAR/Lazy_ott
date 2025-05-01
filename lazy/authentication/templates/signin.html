@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Login
+{% endblock title %}
+
+{% block content %}
+<div class="bg-img">
+    <div class="contenta">
+      <header>Login Form</header>
+      <form id="jk" method="POST" action="#">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="input-box">
+            <label for="{{field.id_for_label}}">{{ field.label }}</label>
+            <br>
+            {{field}}
+        </div>
+        {% endfor %}
+        <button class="button" type="submit">Login</button>
+        <a style="text-decoration:none; color:white; position:relative; top:20px;" href="{% url 'signup' %}" class='ad' type="button">Create Account</a>
+      </form>
+    </div>
+  </div>
+  <script>
+    const pass_field = document.querySelector('.pass-key');
+    const showBtn = document.querySelector('.show');
+    showBtn.addEventListener('click', function(){
+     if(pass_field.type === "password"){
+       pass_field.type = "text";
+       showBtn.textContent = "HIDE";
+       showBtn.style.color = "#3498db";
+     }else{
+       pass_field.type = "password";
+       showBtn.textContent = "SHOW";
+       showBtn.style.color = "#222";
+     }
+    });
+  </script>
+{% endblock %}

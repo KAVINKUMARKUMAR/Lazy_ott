@@ -2,7 +2,7 @@
 {% block content %}
 <div class="movie_page">
     <div class="movie_pag">
-        <div id="line" class="line">
+        <div style="margin-top:80px;" id="line" class="line">
             <div class="line_ball"></div>
         </div>
         <div class="searcher">
@@ -39,7 +39,9 @@
                 </div>
             </div>
             <div class="movie_slots">
-                <div class="movie_image_slot">
+                <div style="display: grid;
+    grid-template-columns: repeat(6,240px);
+    grid-template-row: repeat(6,1fr); gap:0px" class="movie_image_slot">
                     {% for movie in movies %}
                     <a href="{% url 'detials' id=movie.id %}" >
                       <div class="movie_card">

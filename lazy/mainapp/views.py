@@ -2,7 +2,10 @@ from django.shortcuts import render,get_object_or_404
 from django.template import loader
 from django.http import HttpResponse,JsonResponse
 from .models import Nav_banner,Movie_card,generes_card,Actor
-# Create your views here.
+from django.contrib.auth.decorators import login_required
+from django.views.generic import DetailView,UpdateView,DeleteView,ListView,CreateView
+from .forms import AddmovieForm,AddgenereForm
+@login_required
 def homeView(request):
     context = {
         # context data to be pulled from the DB
@@ -12,6 +15,7 @@ def homeView(request):
         # the above line of code is equivalent to SELECT * FROM product_table;
     }
     return render(request, 'home.html', context)
+
 
 def movieView(request):
     context = {
@@ -38,3 +42,13 @@ def detialView(request, id):
 
     }
     return render(request, 'movie_detials.html', context)
+class AddMovie(CreateView):
+    model = Movie_card
+    template_name = 'add_movie.html'
+    form_class = AddmovieForm
+    success_url = '/'
+class Addgenere(CreateView):
+    model = generes_card
+    template_name = 'generes_card.html'
+    form_class = AddgenereForm
+    success_url = '/'
