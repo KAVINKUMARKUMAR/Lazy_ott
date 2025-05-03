@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}
-Generes card
+Add Actors
 {% endblock %}
 {% block content %}
-<div id="bg-im-gene" class="bg-img">
-    <div id="bg-c-gene" class="contenta">
-      <header>Generes card</header>
+<div id="bg-im-edit" class="bg-img">
+    <div id="bg-c-edit" style="margin-top: 360px;" class="contenta">
+      <header>Edit movie card</header>
       <form id="jk" method="POST" action="#">
         {% csrf_token %}
         {{form.as_p}}

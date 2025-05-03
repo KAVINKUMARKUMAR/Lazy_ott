@@ -30,37 +30,45 @@
     </div>
     <h2>POPULAR</h2>
     <div class="movie_slot">
-      <h3>Movies</h3>
-      <h3>Series</h3>
-    </div>
-    <div class="movie_image_slot">
-      {% for movie in movies|slice:":12" %}
-      <a href="{% url 'detials' id=movie.id %}">
+      <h3 id="btnMovies" class="categoryButton moviesButton" onclick="showCategory('movies')">Movies</h3>
+      <h3 id="btnSeries" class="categoryButton seriesButton" onclick="showCategory('series')">Series</h3>
+  </div> 
+  <div class="movie_image_slot" id="moviesContainer">
+    {% for movie in movies|slice:":12" %}
+      {% if user.is_staff %}
+        <a href="{% url 'edit_movie' pk=movie.id %}">
+      {% else %}
+        <a href="{% url 'detials' pk=movie.id %}">
+      {% endif %}
+          <div class="movie_card">
+            <div class="movie_image">
+              <img src="{{ movie.img.url }}" alt="Poster of {{ movie.Movie_name }}">
+            </div>
+            <div class="movie_rating">
+              <p>{{ movie.Movie_rating }}</p>
+            </div>
+          </div>
+        </a>
+    {% endfor %}
+  </div>
+  
+    
+    
+    <div class="movie_image_slot" id="seriesContainer" style="display: none;">
+      {% for series in series_list|slice:":12" %}
+      <a href="{% url 'details' id=series.id %}">
         <div class="movie_card">
           <div class="movie_image">
-            <img src="{{movie.img.url}}" alt="{{movie.img.url}}">
+            <img src="{{ series.img.url }}" alt="Poster of {{ series.title }}">
           </div>
           <div class="movie_rating">
-            <p>{{ movie.Movie_rating }}</p>
+            <p>{{ series.Movie_rating }}</p>
           </div>
         </div>
       </a>
       {% endfor %}
     </div>
-    <div class="generes">
-      <div class="gen_cap">
-        <h3>TOP GENERES > </h3>
-      </div>
-      <div class="gen_cat">
-        {% for gen in generes %}
-          <div class="gen_box">
-            <p>{{gen.gen_name}}</p>
-            <div class="gen_img">
-              <img src="{{gen.img.url}}" alt="{{gen.gen_name}}">
-            </div>
-          </div>
-        {% endfor %}
-      </div>
+    
     </div>
     <div class="line">
       <div id="black_ball" class="line_ball">
@@ -85,4 +93,37 @@
     </div>
   </div>
 </div>
+<script>
+  function showCategory(type) {
+    const movieDiv = document.getElementById("moviesContainer");
+    const seriesDiv = document.getElementById("seriesContainer");
+    if (type === "movies") {
+      movieDiv.style.display = "flex";
+      seriesDiv.style.display = "none";
+    } else {
+      movieDiv.style.display = "none";
+      seriesDiv.style.display = "flex";
+    }
+  }
+
+  // Auto-scroll
+  function autoScroll(containerId) {
+    const container = document.getElementById(containerId);
+    setInterval(() => {
+      container.scrollLeft += 250;
+      // Reset if reached end
+      if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+        container.scrollLeft = 0;
+      }
+    }, 5000);
+  }
+
+  // Start auto-scroll on load
+  window.onload = function () {
+    autoScroll("moviesContainer");
+    autoScroll("seriesContainer");
+  };
+  
+</script>
+
 {% endblock %}

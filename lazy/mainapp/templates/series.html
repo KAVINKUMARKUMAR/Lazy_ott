@@ -26,16 +26,12 @@
             <div class="movie_gen">
                 <h1>Genere</h1>
                 <div class="movie_sort">
-                    <div class="movie_sor">
-                        <p>popular</p>
-                        <p>top rated</p>
-                        <p>comedy</p>
-                        <p>horror</p>
-                        <p>action</p>
-                        <p>romance</p>
-                        <p>sci-fi</p>
-                        <p>animation</p>
-                    </div>
+                  <div class="movie_sor">
+                    <button onclick="loadAllMovies()">All</button>
+                    {% for genre in genres %}
+                        <button onclick="filterByGenre({{ genre.id }})">{{ genre.name }}</button>
+                    {% endfor %}
+                </div>
                 </div>
             </div>
             <div class="movie_slots">

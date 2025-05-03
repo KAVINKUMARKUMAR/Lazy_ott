@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}
-Generes card
+Add Nav
 {% endblock %}
 {% block content %}
-<div id="bg-im-gene" class="bg-img">
-    <div id="bg-c-gene" class="contenta">
-      <header>Generes card</header>
+<div id="bg-im-nav" class="bg-img">
+    <div id="bg-c-nav" style="margin-top: 80px;" class="contenta">
+      <header>add Nav Banner</header>
       <form id="jk" method="POST" action="#">
         {% csrf_token %}
         {{form.as_p}}

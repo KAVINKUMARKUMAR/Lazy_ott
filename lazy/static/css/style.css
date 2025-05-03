@@ -248,6 +248,7 @@ body, html {
           color: white;
           justify-content: center;
           align-items: center;
+          cursor: pointer;
       }
   }
   .movie_image_slot{
@@ -568,10 +569,11 @@ body, html {
       color: white;
       gap: 20px;
       cursor: pointer;
-      p{
+      button{
         width: 110px;
         height: 25px;
         border: 2px solid rgb(255, 252, 252);
+        color: white;
         border-radius: 7px;
         display: flex;
         justify-content: center;
@@ -585,22 +587,17 @@ body, html {
   width: 100%;
   height: auto;
   display: flex;
+  p{
+    color: white;
+  }
   .movie_image_slot{
-    width: 100%;
-    height: auto;
-    /* background-color: rgb(0, 22, 22); */
-    display: grid;
-    grid-template-columns: repeat(5,1fr);
-    grid-template-columns: repeat(6,1fr);
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    overflow: hidden;
-    padding-left: 19px;
+    display: flex;
+    overflow-x: auto;  /* Enables horizontal scrolling */
+    gap: 10px;  /* Adds spacing between movie cards */
+    padding: 10px;
     .movie_card{
-      display: flex;
-      margin-top: 20px;
-      gap: 14px;
+      width: 200px;  /* Adjust to fit your design */
+      flex-shrink: 0;
       .movie_rating{
         width: 35px;
         height: 35px;
@@ -813,6 +810,9 @@ body, html {
   height: 100vh;
   background-size: cover;
   background-position: center;
+  label{
+    color: white;
+  }
 }
 .bg-img:after{
   position: absolute;
@@ -978,4 +978,46 @@ i span{
   border-radius: 5px;
   margin-top: 10px;
   ma
+}
+
+.movie_image_slot::-webkit-scrollbar {
+    height: 8px;  /* Adjust height for horizontal scrollbar */
+}
+
+.movie_image_slot::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+}
+
+.movie_image_slot::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+#bg-im-add{
+  height: 2600px;
+  #bg-c-add{
+    width: 800px;
+  }
+}
+#bg-im-gene{
+  #bg-c-gene{
+    width: 500px;
+  }
+}
+#bg-im-nav{
+  #bg-c-nav{
+    width: 600px;
+  }
+}
+#bg-im-act{
+  #bg-c-act{
+    width: 500px;
+  }
+}
+#bg-im-edit{
+  height: 2600px;
+  background: url('bg.jpg');
+  #bg-c-edit{
+    width: 900px;
+    background: url('bg.jpg');
+  }
 }

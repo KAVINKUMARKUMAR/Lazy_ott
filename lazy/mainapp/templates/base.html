@@ -27,7 +27,8 @@
                     {% if user.is_staff %}
                         <li><a href="{% url 'movie_add' %}">Add movie</a></li>
                         <li><a href="{% url 'genere_add' %}">Generes_cards</a></li>
-                        <li><a href="{% url 'home' %}">Navigation banner</a></li>
+                        <li><a href="{% url 'nav_add' %}">Navigation banner</a></li>
+                        <li><a href="{% url 'add_actor' %}">Actors</a></li>
                     {% else %}
                         <li><a href="{% url 'home' %}">Home</a></li>
                         <li><a href="{% url 'movies' %}">Movies</a></li>
