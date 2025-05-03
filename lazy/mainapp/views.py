@@ -34,12 +34,12 @@ def newsView(request):
         # the above line of code is equivalent to SELECT * FROM product_table;
     }
     return render(request, 'news.html', context)
-def detialView(request, id):
-    movie = get_object_or_404(Movie_card, pk=id)
+def detialView(request, pk):
+    movie = get_object_or_404(Movie_card, pk=pk)
     context = {
         'flim': movie,
         'Nav_banners' : Nav_banner.objects.all(),
-        'casts' : Actor.objects.filter(movies__id=id)
+        'casts' : Actor.objects.filter(movies__id=pk)
 
     }
     return render(request, 'movie_detials.html', context)

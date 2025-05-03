@@ -44,6 +44,7 @@ class Movie_card(models.Model):
     Runtime = models.IntegerField(default=0)
     description = models.TextField(default='No description available')
     cast = models.ManyToManyField(Actor,related_name='movies')
+    trailer_url = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return f"movie_card: {self.Movie_name}"

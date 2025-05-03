@@ -39,7 +39,7 @@
 
             <!-- Movie Slots -->
             <div class="movie_slots">
-                <div id="movie_slots" style="display: grid; grid-template-columns: repeat(6,240px); gap: 10px;" class="movie_image_slot">
+                <div id="movie_slots" style="padding-left: 100px; display: grid; grid-template-columns: repeat(6,240px); gap: 10px;" class="movie_image_slot">
                     {% for movie in movies %}
                     <a href="{% url 'detials' pk=movie.id %}">
                         <div class="movie_card">
