@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-{% load static%}
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         {% block title %}
+        Home
         {% endblock %}
     </title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
+          integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/icons8-thunder-50.png' %}">
     <script src="{% static 'js/script.js' %}" defer></script>
 </head>
 <body>
@@ -26,8 +29,8 @@
                 {% if user.is_authenticated %}
                     {% if user.is_staff %}
                         <li><a href="{% url 'movie_add' %}">Add movie</a></li>
-                        <li><a href="{% url 'genere_add' %}">Generes_cards</a></li>
-                        <li><a href="{% url 'nav_add' %}">Navigation banner</a></li>
+                        <li><a href="{% url 'genere_add' %}">Genres Cards</a></li>
+                        <li><a href="{% url 'nav_add' %}">Navigation Banner</a></li>
                         <li><a href="{% url 'add_actor' %}">Actors</a></li>
                     {% else %}
                         <li><a href="{% url 'home' %}">Home</a></li>
@@ -35,33 +38,42 @@
                         <li><a href="{% url 'series' %}">Series</a></li>
                         <li><a href="{% url 'news' %}">News</a></li>
                     {% endif %}
-                {% else %}
                 {% endif %}
             </ul>
-                
             <div class="nav_search">
-                <!-- From Uiverse.io by krlozCJ --> 
-                <div class="container">
-                    {% comment %} <input type="text" name="text" class="input" required="" placeholder="Type to search...">
-                    <div class="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
-                            <title>Search</title>
-                            <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
-                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path>
-                        </svg>
-                    </div> {% endcomment %}
-                </div>
                 {% if user.is_authenticated %}
                     <form method="post" action="{% url 'logout' %}">
                         {% csrf_token %}
                         <button style="color: white; margin-bottom:17px;" type="submit" class="nav-link">Logout</button>
                     </form>
-                {% else %}
-                {% endif %}        
+                {% endif %}
             </div>
         </div>
-        {% block content %}
-        {% endblock %}
     </nav>
+    {% block content %}
+    {% endblock %}
+    <div class="lin">
+        <div class="line">
+            <div id="black_ball" class="line_ball">
+                <a href="#slide">
+                    <h5>^</h5>
+                </a>
+            </div>
+        </div>
+        <div class="laz">
+            <div class="laz_about">
+                <p class="p_about">LAZY</p>
+                <h6>Movie reviews in Tamil language</h6>
+            </div>
+            <div class="laz_about">
+                <p class="p_about">Developer</p>
+                <h6>Designed and developed by Kavinkumar using Django</h6>
+            </div>
+            <div class="laz_about">
+                <p class="p_about">Contact</p>
+                <h6>Email: Kavinkumar2112202@gmail.com</h6>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

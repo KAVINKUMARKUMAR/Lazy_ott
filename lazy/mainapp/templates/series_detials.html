@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="det">
+    <div class="movie_banner" style="background-image: linear-gradient(to right, rgba(0, 0, 0, 0.95) 0%, transparent 60%, transparent 60%, rgba(0, 0, 0, 0.89) 100%), url('{{ sere.Series_poster.url }}');">
+        <div class="movie_ban">
+            <h1>{{ sere.Series_name }}</h1>
+            <p>
+                {{ sere.Series_release_date }} |
+                {% for lang in sere.Series_language.all %}
+                    {{ lang.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %} |
+                {% for genre in sere.Series_genere.all %}
+                    {{ genre.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            <h3>{{ sere.Series_type }}</h3>
+            <div class="watch_but">
+                <h5 class="active" style="background-image: linear-gradient(to top, #09203f 0%, #537895 100%);">▶ WATCH</h5>
+                <h5 id="trailer_btn">TRAILER</h5>
+            </div>
+        </div>
+    </div>
+
+    <div id="trailer_modal" class="trailer_modal">
+        <div class="trailer_content">
+            <span id="close_trailer" class="close_trailer">&times;</span>
+            <iframe width="1300px" height="700px"
+                src="{{ sere.Series_trailer_url }}?autoplay=1"
+                frameborder="0" allowfullscreen>
+            </iframe>
+        </div>
+    </div>  
+
+    <div id="movie_ab" class="movie_ab">
+        <div class="movie_det">
+            <div class="movie_about">
+                <div class="movie_aboua">
+                    <h2>ABOUT</h2>
+                </div>
+                <div class="movie_aboub">
+                    <div class="movie_abo">
+                        <b>Date</b>
+                        <p>{{ sere.Series_release_date }}</p>
+                    </div>
+                    <div class="movie_abo">
+                        <b>Age</b>
+                        <p>PG-{{ sere.Series_age }}</p>
+                    </div>
+                    <div class="movie_abo">
+                        <b>Country</b>
+                        <p>{{ sere.Series_country }}</p>
+                    </div>
+                    <div class="movie_abo">
+                        <b>Revenue</b>
+                        <p>{{ sere.Series_Revenue }}Cr</p>
+                    </div>
+                    <div class="movie_abo">
+                        <b>Runtime</b>
+                        <p>{{ sere.Series_Runtime }} m</p>
+                    </div>
+                    <div class="movie_abo" style="width:200px;">
+                        <b>Genre</b>
+                        <p>
+                            {% for genre in sere.Series_genere.all %}
+                                {{ genre.name }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+                <div class="movie_abouc">
+                    <b>Description</b>
+                    <p>{{ sere.Series_description }}</p>
+                </div>
+            </div>
+
+            <div class="cast">
+                <h2>THE CAST</h2>
+                <div class="cast_box_con">
+                    {% for actor in casts %}
+                        <div class="cast_box">
+                            <div class="cast_img_box">
+                                <img src="{{ actor.img.url }}" alt="">
+                            </div>
+                            <div class="cas">
+                                <p>{{ actor.name }}</p>
+                                <p>{{ actor.Character_name }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const trailerBtn = document.getElementById("trailer_btn");
+        const trailerModal = document.getElementById("trailer_modal");
+        const closeBtn = document.getElementById("close_trailer");
+
+        // When the trailer button is clicked
+        trailerBtn.addEventListener("click", function () {
+            trailerModal.style.display = "flex";  // Show the modal
+        });
+
+        // When the close button is clicked
+        closeBtn.addEventListener("click", function () {
+            trailerModal.style.display = "none"; // Close the modal
+        });
+
+        // Close the modal if you click outside of the modal content
+        window.addEventListener("click", function (e) {
+            if (e.target === trailerModal) {
+                trailerModal.style.display = "none";
+            }
+        });
+    });
+</script>
+
+{% endblock %}

@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
-{% block content %}
 
+{% block content %}
 <div class="carousel">
   {% for navban in Nav_banners %}
-    <div id="slide" class="slide active" style="background-image: url('{{navban.img.url}}');">
+    <div id="slide" class="slide active" style="background-image: url('{{ navban.img.url }}');">
       <div class="content">
         <h5>{{ forloop.counter }} on trending today</h5>
-        <h1>{{navban.Movie_name}}</h1>
-        <p>{{navban.Movie_about}}</p>
+        <h1>{{ navban.Movie_name }}</h1>
+        <p>{{ navban.Movie_about }}</p>
         <div class="buttons">
           <button class="watch-btn">▶ WATCH</button>
           <button class="about-btn">ABOUT FILM</button>
@@ -15,14 +15,15 @@
       </div>
     </div>
   {% endfor %}
-    <!-- Add more slides as needed -->
-    <div class="dots">
-      {% for navban in Nav_banners %}
-        <span class="dot {% if forloop.first %}active{% endif %}" onclick="currentSlide({{ forloop.counter0 }})"></span>
-      {% endfor %}
-    </div>
-    
+  
+  <div class="dots">
+    {% for navban in Nav_banners %}
+      <span class="dot {% if forloop.first %}active{% endif %}" onclick="currentSlide({{ forloop.counter0 }})"></span>
+    {% endfor %}
+  </div>
 </div>
+
+
 <div class="movie_cat">
   <div class="movie_ca">
     <div class="line">
@@ -32,19 +33,21 @@
     <div class="movie_slot">
       <h3 id="btnMovies" class="categoryButton moviesButton" onclick="showCategory('movies')">Movies</h3>
       <h3 id="btnSeries" class="categoryButton seriesButton" onclick="showCategory('series')">Series</h3>
+    </div>
   </div> 
+  
   <div class="movie_image_slot" id="moviesContainer">
     {% for movie in movies|slice:":12" %}
       {% if user.is_staff %}
-        <a href="{% url 'edit_movie' pk=movie.id %}">
+        <a style="text-decoration:none;" href="{% url 'edit_movie' pk=movie.id %}">
       {% else %}
-        <a href="{% url 'detials' pk=movie.id %}">
+        <a style="text-decoration:none;" href="{% url 'details' pk=movie.id %}">
       {% endif %}
           <div class="movie_card">
             <div class="movie_image">
               <img src="{{ movie.img.url }}" alt="Poster of {{ movie.Movie_name }}">
             </div>
-            <div class="movie_rating">
+            <div style="display:none" class="movie_rating">
               <p>{{ movie.Movie_rating }}</p>
             </div>
           </div>
@@ -52,47 +55,22 @@
     {% endfor %}
   </div>
   
-    
-    
-    <div class="movie_image_slot" id="seriesContainer" style="display: none;">
-      {% for series in series_list|slice:":12" %}
-      <a href="{% url 'details' id=series.id %}">
+  <div class="movie_image_slot" id="seriesContainer" style="display: none;">
+    {% for series in series_list|slice:":12" %}
+      <a style="text-decoration:none;" href="{% url 'details' pk=series.id %}">
         <div class="movie_card">
           <div class="movie_image">
-            <img src="{{ series.img.url }}" alt="Poster of {{ series.title }}">
+            <img src="{{ series.Series_img.url }}" alt="Poster of {{ series.Series_name }}">
           </div>
           <div class="movie_rating">
-            <p>{{ series.Movie_rating }}</p>
+            <p>{{ series.Series_rating }}</p>
           </div>
         </div>
       </a>
-      {% endfor %}
-    </div>
-    
-    </div>
-    <div class="line">
-      <div id="black_ball" class="line_ball">
-        <a href="#slide">
-          <h5>^</h5>
-        </a>
-      </div>
-    </div>
-    <div class="laz">
-      <div class="laz_about">
-        <p class="p_about">LAZY</h5>
-        <h6>movie revies with Tamil Language </p>
-      </div>
-      <div class="laz_about">
-        <p class="p_about">Developer</h5>
-        <h6>Developer and desigh by Kavinkumar with Django</p>
-      </div>
-      <div class="laz_about">
-        <p class="p_about">Contact</h5>
-        <h6>Mail:Kavinkumar2112202@gmail.com</p>
-      </div>
-    </div>
+    {% endfor %}
   </div>
 </div>
+
 <script>
   function showCategory(type) {
     const movieDiv = document.getElementById("moviesContainer");
@@ -106,16 +84,25 @@
     }
   }
 
-  // Auto-scroll
+  // Auto-scroll for right-to-left scroll
   function autoScroll(containerId) {
     const container = document.getElementById(containerId);
+    let scrollAmount = 0;  // Track the scroll amount
+
+    // Make sure the container is wide enough for scrolling
+    const containerWidth = container.scrollWidth - container.clientWidth;
+
     setInterval(() => {
-      container.scrollLeft += 250;
-      // Reset if reached end
-      if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+      // Scroll by 250px per interval
+      container.scrollLeft -= 250;  
+      scrollAmount += 250;
+
+      // If we've scrolled all the way to the left, reset to the right end
+      if (scrollAmount >= containerWidth) {
         container.scrollLeft = 0;
+        scrollAmount = 0;
       }
-    }, 5000);
+    }, 50); // Adjust the scroll speed with the interval time (lower value = faster scroll)
   }
 
   // Start auto-scroll on load
@@ -123,7 +110,6 @@
     autoScroll("moviesContainer");
     autoScroll("seriesContainer");
   };
-  
 </script>
 
 {% endblock %}

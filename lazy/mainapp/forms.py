@@ -10,6 +10,7 @@ class AddmovieForm(forms.ModelForm):
             "Movie rating": forms.NumberInput(attrs={'class' : 'form w-50', 'value': 0.00}),
             "img" : forms.TextInput(attrs={'class' : 'form'}),
         }
+        
 class AddgenereForm(forms.ModelForm):
     class Meta:
         model = generes_card

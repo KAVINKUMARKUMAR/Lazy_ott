@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
+{% block title %}
+News
+{% endblock %}
 {% block content %}
 <div class="movie_page">
     <div class="movie_pag">
         <div style="margin-top:80px;" id="line" class="line">
             <div class="line_ball"></div>
         </div>
-        <div class="searcher" >
+        {% comment %} <div class="searcher" >
             <div class="movie_slots">
                 <div class="movie_image_slot">
                     {% for movie in movies %}
@@ -20,30 +23,9 @@
                     {% endfor %}
                 </div>
             </div>
-        </div>
+        </div> {% endcomment %}
         <div class="news_pro">
             <h1 id="com">Coming soon,working on process</h1>
-        </div>
-        <div class="line">
-            <div id="black_ball" class="line_ball">
-              <a href="#line">
-                <h5>^</h5>
-              </a>
-            </div>
-          </div>
-          <div class="laz">
-            <div class="laz_about">
-              <p class="p_about">LAZY</h5>
-              <h6>movie revies with Tamil Language </p>
-            </div>
-            <div class="laz_about">
-              <p class="p_about">Developer</h5>
-              <h6>Developer and desigh by Kavinkumar with Django</p>
-            </div>
-            <div class="laz_about">
-              <p class="p_about">Contact</h5>
-              <h6>Mail:Kavinkumar2112202@gmail.com</p>
-            </div>
         </div>
     </div>
 </div>

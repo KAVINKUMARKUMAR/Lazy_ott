@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
+{% block title %}
+Series
+{% endblock %}
 {% block content %}
 <div class="movie_page">
     <div class="movie_pag">
-        <div style="margin-top:80px;" id="line" class="line">
-            <div class="line_ball"></div>
-        </div>
         <div class="searcher">
             <div class="searcher-box">
                 <div class="searcher-field">
-                    <input placeholder="Search your Movies and Series" class="input" type="text">
+                    <input id="searchInput" placeholder="Search your Movies and Series" class="input" type="text">
                     <div class="searcher-box-icon">
                         <button class="btn-icon-content">
                             <i class="searcher-icon">
-                                <svg xmlns="://www.w3.org/2000/svg" version="1.1" viewBox="0 0 512 512">
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 512 512">
                                     <path
                                         d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
                                         fill="#fff">
@@ -28,50 +28,110 @@
                 <div class="movie_sort">
                   <div class="movie_sor">
                     <button onclick="loadAllMovies()">All</button>
-                    {% for genre in genres %}
+                    {% for genre in Series_genere %}
                         <button onclick="filterByGenre({{ genre.id }})">{{ genre.name }}</button>
                     {% endfor %}
-                </div>
+                  </div>
                 </div>
             </div>
             <div class="movie_slots">
                 <div class="movie_image_slot">
-                    {% for movie in movies %}
-                      <div class="movie_card">
-                        <div class="movie_image">
-                          <img src="{{movie.img.url}}" alt="{{movie.img.url}}">
+                    {% for series in Series_card %}
+                      <a style="text-decoration:none;" href="{% url 'seriesdetails' series.id %}">
+                        <div class="movie_card">
+                          <div class="movie_image">
+                            <img src="{{ series.Series_img.url }}" alt="{{ series.Series_name }}">
+                          </div>
+                          <div class="movie_rating">
+                            <p>{{ series.Series_rating }}</p>
+                          </div>
                         </div>
-                        <div class="movie_rating">
-                          <p>{{ movie.Movie_rating }}</p>
-                        </div>
-                      </div>
+                      </a>
                     {% endfor %}
                 </div>
             </div>
         </div>
-        <div class="series_box">
-        </div>
-        <div class="line">
-            <div id="black_ball" class="line_ball">
-              <a href="#line">
-                <h5>^</h5>
-              </a>
-            </div>
-          </div>
-          <div class="laz">
-            <div class="laz_about">
-              <p class="p_about">LAZY</h5>
-              <h6>movie revies with Tamil Language </p>
-            </div>
-            <div class="laz_about">
-              <p class="p_about">Developer</h5>
-              <h6>Developer and desigh by Kavinkumar with Django</p>
-            </div>
-            <div class="laz_about">
-              <p class="p_about">Contact</h5>
-              <h6>Mail:Kavinkumar2112202@gmail.com</p>
-            </div>
-          </div>
+        <div class="series_box"></div>
     </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("searchInput");
+    const slot = document.querySelector(".movie_image_slot");
+
+    if (searchInput) {
+        searchInput.addEventListener("keyup", function () {
+            const query = this.value.trim();
+            if (query.length === 0) {
+                loadAllMovies();
+                return;
+            }
+
+            fetch(`/search_movies?q=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    slot.innerHTML = '';
+                    if (data.movies.length === 0) {
+                        slot.innerHTML = '<p>No results found.</p>';
+                        return;
+                    }
+                    data.movies.forEach(movie => {
+                        slot.innerHTML += `
+                            <a style="text-decoration:none;" href="/seriesdetails/${movie.id}/">
+                                <div class="movie_card">
+                                    <div class="movie_image">
+                                        <img src="${movie.image}" alt="${movie.name}">
+                                    </div>
+                                    <div class="movie_rating">
+                                        <p>${movie.rating}</p>
+                                    </div>
+                                </div>
+                            </a>`;
+                    });
+                })
+                .catch(error => {
+                    console.error("Search error:", error);
+                    slot.innerHTML = '<p>Error fetching results.</p>';
+                });
+        });
+    }
+
+    window.filterByGenre = function (genreId) {
+        fetch(`/series_by_genre/${genreId}/`)
+            .then(response => response.json())
+            .then(data => {
+                slot.innerHTML = '';
+                if (data.series.length === 0) {
+                    slot.innerHTML = '<p>No series found in this genre.</p>';
+                    return;
+                }
+                data.series.forEach(series => {
+                    slot.innerHTML += `
+                        <a style="text-decoration:none;" href="/series/${series.id}/">
+                            <div class="movie_card">
+                                <div class="movie_image">
+                                    <img src="${series.image}" alt="${series.name}">
+                                </div>
+                                <div style="position:relative; bottom:333px; right:-194px;" class="movie_rating">
+                                    <p>${series.rating}</p>
+                                </div>
+                            </div>
+                        </a>`;
+                });
+
+            })
+            .catch(error => {
+                console.error("Genre filter error:", error);
+                slot.innerHTML = '<p>Error loading genre series.</p>';
+            });
+    };
+
+    window.loadAllMovies = function () {
+        filterByGenre(0);
+    };
+
+    loadAllMovies();
+});
+</script>
 {% endblock %}
